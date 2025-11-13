@@ -33,7 +33,7 @@ public class Ejercicio1 {
 				
 				if(intr >= intl) yield lsr; 
 				else yield lsl; 
-			} else { //TODO: Preguntar en teoria si lb == null indica vacio o que no tiene etiqueta o es lo mismo? 
+			} else { //TODO: No entra, si es null esta vacio  
 				yield new ArrayList<Integer>(); 
 			}
 		}   
