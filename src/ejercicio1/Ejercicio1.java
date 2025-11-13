@@ -23,27 +23,20 @@ public class Ejercicio1 {
 		return switch (tree) { 
 		case BEmpty() -> new ArrayList<Integer>();  
 		case BTree(var lb, var lt, var rt) -> { 
-			if(lb != null) {
-				ls.add(lb);
-				//IMPORTANTE COPIAR LA LISTA, SI NO SE MODIFICA Y SE LIA 
-				List<Integer> lsr = caminoMaximoBinAux(rt, new ArrayList<Integer>(ls)); 
-				List<Integer> lsl = caminoMaximoBinAux(lt, new ArrayList<Integer>(ls)); 
-				Integer intr = producto(lsr); 
-				Integer intl = producto(lsl); 
-				
-				if(intr >= intl) yield lsr; 
-				else yield lsl; 
-			} else { //TODO: No entra, si es null esta vacio  
-				yield new ArrayList<Integer>(); 
+			ls.add(lb);
+			//IMPORTANTE COPIAR LA LISTA, SI NO SE MODIFICA Y SE LIA 
+			List<Integer> lsr = caminoMaximoBinAux(rt, new ArrayList<Integer>(ls)); 
+			List<Integer> lsl = caminoMaximoBinAux(lt, new ArrayList<Integer>(ls)); 
+			Integer intr = producto(lsr); 
+			Integer intl = producto(lsl); 
+			
+			if(intr >= intl) yield lsr; 
+			else yield lsl; 
 			}
-		}   
+		    
 		case BLeaf(var lb) -> { 
-			if(lb != null) { 
-				ls.add(lb); 
-				yield ls; 
-			} else { 
-				yield new ArrayList<Integer>(); 
-			}
+			ls.add(lb); 
+			yield ls; 
 		} 
 		};
 	}
@@ -57,12 +50,9 @@ public class Ejercicio1 {
 		return switch(tree) { 
 		case TEmpty() -> new ArrayList<Integer>(); 
 		case TLeaf(var lb) -> { 
-			if(lb != null) { 
-				ls.add(lb); 
-				yield ls; 
-			} else { 
-				yield new ArrayList<Integer>(); 
-			}
+			ls.add(lb); 
+			yield ls; 
+			
 		}
 		case TNary(var lb, var children) -> { 
 			ls.add(lb); 
