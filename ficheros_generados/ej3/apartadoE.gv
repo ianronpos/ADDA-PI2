@@ -1,0 +1,23 @@
+strict graph G {
+  1 [ color="green" label="INV-1 oviedo Reunion0" ];
+  2 [ color="yellow" label="INV-2 oviedo Reunion1" ];
+  3 [ color="green" label="INV-3 salamanca Reunion0" ];
+  4 [ color="yellow" label="INV-4 salamanca Reunion1" ];
+  5 [ color="green" label="INV-5 granada Reunion0" ];
+  6 [ color="red" label="INV-6 oviedo Reunion2" ];
+  7 [ color="gray" label="INV-7 salamanca Reunion3" ];
+  8 [ color="yellow" label="INV-8 granada Reunion1" ];
+  9 [ color="cyan" label="INV-9 oviedo Reunion4" ];
+  1 -- 6 [ color="black" label="3.0" ];
+  1 -- 2 [ color="black" label="5.0" ];
+  1 -- 4 [ color="black" label="7.0" ];
+  4 -- 7 [ color="black" label="6.0" ];
+  4 -- 5 [ color="black" label="3.0" ];
+  4 -- 6 [ color="black" label="5.0" ];
+  5 -- 8 [ color="black" label="4.0" ];
+  6 -- 9 [ color="black" label="3.0" ];
+  6 -- 7 [ color="black" label="6.0" ];
+  7 -- 8 [ color="black" label="6.0" ];
+  7 -- 9 [ color="black" label="2.0" ];
+  2 -- 3 [ color="black" label="1.0" ];
+}

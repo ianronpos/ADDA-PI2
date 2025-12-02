@@ -61,6 +61,8 @@ public class Ejercicio1 {
 			List<Integer> mejorCamino = new ArrayList<Integer>(ls); 
 			Integer mejorProducto = producto(mejorCamino); 
 			
+			
+			//TODO: PASAR A RECURSIVO
 			//Recorrer cada hijo y comprobar cual es el mejor
 			for(Tree<Integer> e: children) { 
 				//IMPORTANTE COPIAR LA LISTA, SI NO SE MODIFICA Y SE LIA 
@@ -75,6 +77,13 @@ public class Ejercicio1 {
 		}
 		}; 
 	}
+
+	//TODO: IMPLMENTAR Y SUSTITUIR POR EL FOR
+	private static List<Integer> recorrerHijosAux(List<Tree<Integer>> childrens, Integer index, Integer mejor){ 
+		return null; 
+	}
+	
+	
 	private static Integer producto(List<Integer> ls ) { 
 		Integer res = 1; 
 		for(Integer i: ls) { 
