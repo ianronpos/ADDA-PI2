@@ -1,0 +1,24 @@
+strict graph G {
+  1 [ color="red" label="m1" ];
+  2 [ color="red" label="m2" ];
+  3 [ color="red" ];
+  4 [ color="red" label="m4" ];
+  5 [ color="red" label="m5" ];
+  6 [ color="red" ];
+  7 [ color="red" label="m7" ];
+  8 [ color="red" ];
+  9 [ color="red" label="m9" ];
+  1 -- 6 [ color="black" label="1.0" ];
+  1 -- 2 [ color="red" label="2.0" ];
+  1 -- 4 [ color="red" label="3.0" ];
+  4 -- 7 [ color="black" label="2.0" ];
+  4 -- 5 [ color="black" label="1.0" ];
+  4 -- 6 [ color="red" label="1.0" ];
+  5 -- 8 [ color="red" label="2.0" ];
+  6 -- 9 [ color="red" label="3.0" ];
+  6 -- 7 [ color="black" label="1.0" ];
+  7 -- 8 [ color="red" label="1.0" ];
+  7 -- 9 [ color="red" label="2.0" ];
+  2 -- 3 [ color="red" label="3.0" ];
+  3 -- 5 [ color="red" label="1.0" ];
+}
