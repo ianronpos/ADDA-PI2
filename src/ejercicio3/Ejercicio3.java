@@ -24,18 +24,15 @@ import us.lsi.graphs.views.SubGraphView;
 
 
 public class Ejercicio3 {
-
-
-
-	/*
-	 * EJERCICIO 3 APARTADO A
-	 */
 	
 	public static Graph<Investigador,Colaboracion> getSubgraph_EJ3A(Graph <Investigador, Colaboracion> g) {
+		//Predicado que devuelve los investigadores que nacieron antes de 1982 o tienen mas de 5 articulos con todos sus coautores
 		Predicate<Investigador> pv = x -> x.getFNacimiento() < 1982 || (g.edgesOf(x).stream()
 				.filter(e-> e.getNColaboraciones() > 5).count() > 0); 
+		//Predicado que solo devuelve las aristas con mas de 5 colaboraciones
 		Predicate<Colaboracion> pe = x-> x.getNColaboraciones() > 5; 
 	
+		//Creas el grafo 
 		Graph<Investigador, Colaboracion> gs = SubGraphView.of(g, pv, pe);
 	
 		GraphColors.toDot(g, "ficheros_generados/ej3/apartadoA.gv", 
@@ -48,13 +45,17 @@ public class Ejercicio3 {
 	}	
 	
 	public static List<Investigador> getMayoresColaboradores_E3B (Graph<Investigador,Colaboracion> g) {		
+		//Compara los investigadores en funcion del numero de colaboraciones que tienen 
 		Comparator<Pair<Investigador, Integer>> cmp = Comparator.comparing(Pair::second); 
+		
+		//Obtienes una lista con los 5 Investigadores con mas colaboraciones
 		List<Pair<Investigador, Integer>> ls = g.vertexSet().stream()
 				.map(i -> Pair.of(i, g.degreeOf(i)))
 				.sorted(cmp.reversed())
 				.limit(5)
 				.toList(); 
 		
+		//Obtienes solo el nombre de los investigadores
 		List<Investigador> res = ls.stream().map(Pair::first).toList(); 
 		
 		GraphColors.toDot(g, "ficheros_generados/ej3/apartadoB.gv", 
@@ -71,14 +72,16 @@ public class Ejercicio3 {
 
 
 	public static Map<Investigador,List<Investigador>> getMapListaColabroradores_E3C (Graph<Investigador,Colaboracion> g) {
-        Comparator<Colaboracion> cmp = Comparator.comparing(Colaboracion::getNColaboraciones); 
+		Comparator<Colaboracion> cmp = Comparator.comparing(Colaboracion::getNColaboraciones); 
+		
+		//Agrupas los investigadores con sus colaboradores en funcion de sus colaboraciones por orden decreciendte 
 		Map<Investigador,  List<Investigador>> res = g.vertexSet().stream()
         		.collect(Collectors.toMap(
         				investigador -> investigador, 
         				investigador -> { 
-        					return g.edgesOf(investigador).stream()
-        							.sorted(cmp.reversed()) 
-        							.map(e-> Graphs.getOppositeVertex(g, e, investigador)) 
+        					return g.edgesOf(investigador).stream() //Obtienes lista de  colaboradores
+        							.sorted(cmp.reversed())  //Ordenas por numero de colaboraciones de forma decreciente 
+        							.map(e-> Graphs.getOppositeVertex(g, e, investigador)) //Obtienes el nombre del colaborador
         							.toList();
         				}
         				)); 
@@ -99,13 +102,19 @@ public class Ejercicio3 {
 	}
 	
 	public static Pair<Investigador,Investigador> getParMasLejano_E3D (Graph<Investigador,Colaboracion> g) {
+		//Buscar la pareja de investigadores mas lejana con el camino minimo
 		Pair<Investigador, Investigador> res = null; 
+		
 		Integer distancia = -1; //Distancia minima 0 
-		for(Investigador source: g.vertexSet()) { 
-			for(Investigador target: g.vertexSet()) { 
-				if(!source.equals(target)) {
+		for(Investigador source: g.vertexSet()) { //Investigador de partida 
+			for(Investigador target: g.vertexSet()) { //Iteras sobre todos los que estan conectados 
+				if(!source.equals(target)) { //Si no es el mismo, si son el mismo es un bucle y da error
+					//Obtienes el camino minimo entre ellos 
 					GraphPath<Investigador, Colaboracion> actual = BFSShortestPath.findPathBetween(g, source, target); 
-					if(actual.getVertexList().size() - 2 > distancia) {//La distancia es 0 si estan conectados directamente
+					//Calculas el numero de investigadores entre ellos, getVertexList() incluye el de origen y destino
+					//Se indica en el enunciado que si estan conectados directamente distancia 0 -> se le resta 2 al tamaño de la lista 
+					if(actual.getVertexList().size() - 2 > distancia) {
+						//Actualizas la pareja y su distancia 
 						res = Pair.of(actual.getVertexList().get(0), actual.getVertexList().get(actual.getVertexList().size()-1)); 
 						distancia = actual.getVertexList().size() - 2; 
 					}
@@ -113,6 +122,7 @@ public class Ejercicio3 {
 			}
 		}
 		
+		//Guardas aparte GraphPath por que si lo haces en el bucle peta, no se por que, cosas de java 
 		GraphPath<Investigador, Colaboracion> gp = BFSShortestPath.findPathBetween(g, res.first(), res.second()); 
 		
 		GraphColors.toDot(g, "ficheros_generados/ej3/apartadoD.gv", 
@@ -159,7 +169,7 @@ public class Ejercicio3 {
 		GreedyColoring<Investigador, DefaultEdge> colores = new GreedyColoring<Investigador, DefaultEdge>(conflictos); 
 		grupos = colores.getColoring().getColorClasses();
 		
-		//TODO: Pintar el grafo
+		
 		pintarGrafoE(g, grupos); 
 		
 		return grupos.stream() //Filtro para reuniones de 2 o mas personas

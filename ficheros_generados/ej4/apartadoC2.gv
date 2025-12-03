@@ -1,0 +1,19 @@
+strict graph G {
+  1 [ color="black" label="INT-7 Relevancia 5" ];
+  2 [ color="red" label="INT-3 Relevancia -1" ];
+  3 [ color="red" label="INT-5 Relevancia 4" ];
+  4 [ color="red" label="INT-4 Relevancia 2" ];
+  5 [ color="black" label="INT-9 Relevancia 3" ];
+  6 [ color="black" label="INT-6 Relevancia -1" ];
+  7 [ color="red" label="INT-2 Relevancia 3" ];
+  8 [ color="black" label="INT-8 Relevancia -1" ];
+  9 [ color="red" label="INT-1 Relevancia 2" ];
+  9 -- 7 [ color="red" ];
+  9 -- 4 [ color="red" ];
+  4 -- 3 [ color="red" ];
+  6 -- 5 [ color="black" ];
+  7 -- 2 [ color="red" ];
+  1 -- 5 [ color="black" ];
+  6 -- 1 [ color="black" ];
+  2 -- 3 [ color="red" ];
+}
